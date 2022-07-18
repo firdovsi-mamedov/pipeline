@@ -1,19 +1,18 @@
 #!groovy
 
-properties([disableConcurrentBuilds()])
-
 pipeline {
     agent {
-        label: 'master'
-    }
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumKeepStr: '10'))
+        label 'master'
     }
     stages {
-        stage("Command Execute") {
+        stage("Hostname receiver") {
             steps {
                 sh "ssh root@104.248.198.227 'hostname'"
+            }
+        }
+        stage("Uptime shower") {
+            steps {
+                sh "ssh root@104.248.198.227 'uptime'"
             }
         }
     }
